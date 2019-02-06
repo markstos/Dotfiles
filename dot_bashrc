@@ -1,0 +1,121 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoredups
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+xterm-color|xterm-256color|screen-256color)
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    #PS1='[\j]\[\033[01;34m\]\w\[\033[00m\] $(__git_ps1 "(%s)")\n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]\$ '
+    PS1='[\j]\[\033[01;34m\]\w\[\033[00m\] \n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]\$ '
+    ;;
+*)
+    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    #PS1='[\j]\w $(__git_ps1 "(%s)")\n${debian_chroot:+($debian_chroot)}\u\$ '
+    PS1='[\j]\w "(%s)")\n${debian_chroot:+($debian_chroot)}\u\$ '
+    ;;
+esac
+
+# Share the current directory with Tmux so it can display the current dir or git branch in the powerline
+#PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") $PWD)'
+. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+
+# Comment in the above and uncomment this below for a color prompt
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+    ;;
+*)
+    ;;
+esac
+
+# Alias definitions in a separate file like
+# For examples see /usr/share/doc/bash-doc/examples in the bash-doc package.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# User-specific paths go on the right-side for safety, to avoid a sytem binary
+# being replaced.
+export PATH="$PATH:~/bin:~/gocode/bin:~/.local/bin:~/.config/yarn/global/node_modules/.bin/"
+export PATH="$PATH:~/.yarn/bin:./node_modules/.bin"
+export EDITOR=vim
+
+alias t="~/bin/todo.sh"
+complete -F _todo t
+
+export NODE_ENV=laptop;
+
+# Colorize man pages
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+      man "$@"
+}
+
+#two_lines=false;
+source ~/config/oh-my-git/prompt.sh
+
+# For hub, a git wrapper
+eval "$(hub alias -s)"
+
+# For Go code
+export GOPATH=~/gopath
+
+
+if which keychain>/dev/null; then
+  keychain --agents ssh ~/.ssh/id_rsa ~/.ssh/id_dsa
+   . ~/.keychain/${HOSTNAME}-sh
+else
+  echo "keychain binary not found. Skipping agent setup."
+fi
+
+
+# Control-R for reverse search
+# Control-T to select a path that's pasted into the CLI
+# Alt-C to CD into a path.
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# TODO
+export WATCH_FRONTEND="false"
+[ -f ~/unity/unty/bin/unty ] && eval "$(~/unity/unty/bin/unty init -)"

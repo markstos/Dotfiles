@@ -1,0 +1,89 @@
+# .bash_profile - Bourne Shell startup script for login shells
+#
+# see also sh(1), environ(7).
+#
+# This file is read when Bash is invoked as an interactive login shell, or as a non-interactive shell with the --login option,
+# Ref:  https://www.gnu.org/software/bash/manual/bash.html#Bash-Startup-Files
+
+export HOME=/home/mark
+
+#set default permissions to group writable.
+umask 002;
+
+# set PATH so it includes user's private bin if it exists
+if [ -d ~/bin ] ; then
+    export PATH=~/bin:"${PATH}"
+fi
+
+# Don't archive automatically, and use a custom config file.
+alias t='todo.sh -a -d ~/.todo';
+
+BLOCKSIZE=K;    export BLOCKSIZE
+EDITOR=vim;     export EDITOR
+PAGER=less;     export PAGER
+# make mail(1) happy:
+crt=24;         export crt
+
+export COLORTERM=yes;
+export COLORFGBG=default;
+
+#echo 'erase ^?, kill ^U, intr ^C'
+#stty crt erase ^? kill ^U intr ^C
+stty erase ^?
+
+alias cp='cp -i';
+
+#use lots of decimal points in calculator
+alias bc='bc -l';
+
+# a handy calculator. Example: calc 2+2
+calc ()
+{
+  echo $@ | bc
+}
+
+# allow re-editting of failed history expansions
+shopt -s histreedit
+
+# enable extended globbing support
+# explained here: http://www.caliban.org/bash/index.shtm
+shopt -s extglob
+
+# jobs finishing in the background come to the foreground immediately
+set -b
+
+# turn on this jigger to complete everything!
+# from: http://www.caliban.org/bash/index.shtml#completion
+# once installed, use "complete -p" to see all it's completions
+# and "declare -f" to see the code for all it's functions
+bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
+if [ "$PS1" ] && [ $bmajor -eq 2 ] && [ $bminor '>' 04 ] \
+   && [ -f /etc/bash_completion ]; then # interactive shell
+        # Source completion code
+        . /etc/bash_completion
+fi
+# unset bash bmajor bminor
+
+# items to ignore in my history list
+export HISTIGNORE="&:[bf]g:exit:shutdown*"
+
+export NNTPSERVER="localhost"
+
+# include .bashrc if it exists
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+# For Vim/GPG integration
+GPG_TTY=`tty`
+export GPG_TTY
+
+# fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+fbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
