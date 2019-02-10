@@ -36,7 +36,8 @@ esac
 
 # Share the current directory with Tmux so it can display the current dir or git branch in the powerline
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") $PWD)'
-. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+#. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+. /usr/share/powerline/bindings/bash/powerline.sh
 
 # Comment in the above and uncomment this below for a color prompt
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -94,7 +95,7 @@ man() {
 }
 
 #two_lines=false;
-source ~/config/oh-my-git/prompt.sh
+source ~/.config/oh-my-git/prompt.sh
 
 # For hub, a git wrapper
 eval "$(hub alias -s)"
