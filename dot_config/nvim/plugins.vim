@@ -157,6 +157,8 @@ Plug 'chr4/nginx.vim'
 
 " Transparent editing of GPG encrypted files
 Plug 'jamessan/vim-gnupg'
+"  prefer "ASCII-armor" for new files.
+let g:GPGPreferArmor = 1
 
 " Distraction-free editor mode for Vim
 Plug 'mikewest/vimroom'

@@ -4,5 +4,5 @@ alias gst="git status"
 alias gvi='google docs edit $1'
 alias last10="ls -lthd * | head -10"
 alias psc='ps xawf -eo pid,user,cgroup,args' # Group ps output by cgroup
-alias tmux="tmux -f ~/.config/tmux/tmux.conf"
-
+# Using a symlink to ~/.tmux.conf now instead. The alias approach wasn't working
+#alias tmux="tmux -f ~/.config/tmux/tmux.conf"

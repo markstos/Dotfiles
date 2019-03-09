@@ -105,7 +105,7 @@ export GOPATH=~/gopath
 
 
 if which keychain>/dev/null; then
-  keychain --agents ssh ~/.ssh/id_rsa ~/.ssh/id_dsa
+  keychain --agents ssh ~/.ssh/id_rsa
    . ~/.keychain/${HOSTNAME}-sh
 else
   echo "keychain binary not found. Skipping agent setup."
