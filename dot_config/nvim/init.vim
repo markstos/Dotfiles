@@ -150,9 +150,6 @@ colorscheme jellybeans
 let g:indentLine_char = '┊'
 
 
-" Convert tabs to spaces
-set expandtab
-
 " Don't hide the double quotes in JSON!
 let g:vim_json_syntax_conceal = 0
 
@@ -164,8 +161,10 @@ function! s:TmuxRepeat()
   redraw!
 endfunction
 
-" integration with the system clipboard
-set clipboard=unnamedplus
+" This would sync every vim yank, delete, change and put operations with the system clipboard.
+" That's too noisy. Instead, expliclty use the "+ pass something from vim the clipboard.
+" (Or just tmux, which already syncs with the system clipboard
+" set clipboard=unnamedplus
 
 " RideAmigos shortcuts
 cnoreabbrev lcdu lcd ~/unity

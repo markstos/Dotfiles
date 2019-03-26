@@ -172,6 +172,8 @@ Plug 'rhysd/vim-grammarous'
 " https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
+" Add syntax highlighting for Jenkins Jenkinsfile
+Plug 'martinda/Jenkinsfile-vim-syntax'
 
 call plug#end()
 
