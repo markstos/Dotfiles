@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=/home/mark/apps/Postman/Postman
+Name=Postman
+Icon=/home/mark/apps/Postman/app/resources/app/assets/icon.png
+
