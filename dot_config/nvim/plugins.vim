@@ -119,7 +119,7 @@ if has('nvim')
    let g:deoplete#enable_at_startup = 1
    
    " Deoplete settings. Autocomplete is available with C->X, C->I
-   " Autocomplete is off because it is too annoying. 
+   " Autocomplete is off because it is too annoying.
    "let g:deoplete#sources._ = ['buffer', 'file', 'ultisnips']
    let g:deoplete#omni#functions = {}
    let g:deoplete#complete_method = "omnifunc"
@@ -137,7 +137,9 @@ endif
 
 
 " UltiSnips
-"let g:UltiSnipsExpandTrigger       = '<tab>'
+"   Tab to complete a snippet,
+"   Ctrl-J to jump to next field in snippet
+"   :UltiSnipsEdit to edit snips for current language
 let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
 
 
