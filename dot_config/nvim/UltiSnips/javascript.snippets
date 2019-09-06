@@ -2,3 +2,32 @@ snippet c.l "console.log('')" w
 console.log('$1', $2)
 $0
 endsnippet
+
+snippet if "if (condition) { ... }"
+if (${1:true}) {
+  ${VISUAL}$0
+}
+endsnippet
+
+snippet ret "return Statement" w
+return ${VISUAL}$0
+endsnippet
+
+snippet { "Braces" w
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet ( "Parens" w
+(${VISUAL}$1) $0
+endsnippet
+
+snippet config.get "config.get()" w
+config.get('$1')$0
+endsnippet
+
+snippet constreq "require statement" w
+const ${VISUAL}$1 = require('${VISUAL}$2')
+$0
+endsnippet
