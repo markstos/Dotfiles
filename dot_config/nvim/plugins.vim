@@ -112,6 +112,11 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 " Autocompletion system: https://github.com/Shougo/deoplete.nvim
 if has('nvim')
+  " Debian Buster needed a newer Python.
+  if filereadable("/usr/local/bin/python3.7")
+   let g:python3_host_prog = '/usr/local/bin/python3.7'
+  endif
+   
    Plug 'Shougo/deoplete.nvim'
    " Enable deoplete auto-completion at startup
    " May only work in neovim / nvim may need to be
@@ -176,6 +181,9 @@ Plug 'junegunn/vim-easy-align'
 
 " Add syntax highlighting for Jenkins Jenkinsfile
 Plug 'martinda/Jenkinsfile-vim-syntax'
+
+" Add TypeScript support
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
