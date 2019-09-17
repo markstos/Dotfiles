@@ -20,6 +20,7 @@
   ps = push
   pl = pull
   df = diff
+  di = diff
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 # Welcome to pam/fzf heaven. xargs hell
 	pam= !BRANCH=`git recent | fzf` && git checkout ${BRANCH}
