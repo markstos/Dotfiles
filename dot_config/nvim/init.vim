@@ -184,5 +184,8 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+" Use Alt-C to close window from normal mode, for consistency with above
+nnoremap <A-c> <C-w>c
+
 " Highlight the 100th column as a suggested max code width
 set colorcolumn=100
